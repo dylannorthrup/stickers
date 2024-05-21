@@ -1,6 +1,6 @@
-module github.com/76creates/stickers
+module github.com/dylannorthrup/stickers
 
-go 1.18
+go 1.22
 
 require (
 	github.com/charmbracelet/bubbletea v0.20.0

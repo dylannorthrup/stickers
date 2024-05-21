@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.4.1](https://github.com/76creates/stickers/compare/v1.2.0...dylannorthrup:v1.4.1) (2024-05-21)
+### Additional Breaking Changes
+- Forked from [original repository](https://github.com/76creates/stickers/commit/c0cf398aec573c0322e58f32971ff1869f7aea06)
+### Fixes
+- Working to fix issue with importing sub-packages from module
+
 ## [v1.4.0] (draft)
 ### ⚠ BREAKING CHANGES
 - Moved `flexbox` and `table` into separate packages, `github.com/76creates/stickers/flexbox` and `github.com/76creates/stickers/table` respectively. #10 @jon4hz
