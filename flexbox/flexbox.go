@@ -60,6 +60,13 @@ func (r *FlexBox) NewRow() *Row {
 	return rw
 }
 
+// AddRow appends single additional row to the FlexBox
+func (r *FlexBox) AddRow(row *Row) *FlexBox {
+	r.rows = append(r.rows, row)
+	r.setRecalculate()
+	return r
+}
+
 // AddRows appends additional rows to the FlexBox
 func (r *FlexBox) AddRows(rows []*Row) *FlexBox {
 	r.rows = append(r.rows, rows...)
