@@ -23,20 +23,24 @@ type Cell struct {
 	// minHeigth minimal heigth of the cell
 	minHeigth int
 
-	width   int
-	height  int
-	content string
+	width  int
+	height int
+	// The content can be a string, or it can be driven by a function
+	content          string
+	modelContentFunc func() string
+	modelContent     bool
 }
 
 // NewCell initialize FlexBoxCell object with defaults
 func NewCell(ratioX, ratioY int) *Cell {
 	return &Cell{
-		style:    lipgloss.NewStyle(),
-		ratioX:   ratioX,
-		ratioY:   ratioY,
-		minWidth: 0,
-		width:    0,
-		height:   0,
+		style:        lipgloss.NewStyle(),
+		ratioX:       ratioX,
+		ratioY:       ratioY,
+		minWidth:     0,
+		width:        0,
+		height:       0,
+		modelContent: false,
 	}
 }
 
@@ -49,12 +53,27 @@ func (r *Cell) SetID(id string) *Cell {
 // SetContent sets the cells content
 func (r *Cell) SetContent(content string) *Cell {
 	r.content = content
+	r.modelContent = false
 	return r
 }
 
 // GetContent returns the cells raw content
 func (r *Cell) GetContent() string {
 	return r.content
+}
+
+// SetContentFunc sets the cell's content to be driven by a 'func() string'
+func (r *Cell) SetContentFunc(f func() string) *Cell {
+	r.modelContentFunc = f
+	r.content = r.modelContentFunc()
+	r.modelContent = true
+	return r
+}
+
+// UpdateContentsFromFunc runs the content function and uses that to
+// update the cell's contents
+func (r *Cell) UpdateContentsFromFunc() {
+	r.content = r.modelContentFunc()
 }
 
 // SetMinWidth sets the cells minimum width, this will not disable responsivness.
@@ -105,6 +124,9 @@ func (r *Cell) render(inherited ...lipgloss.Style) string {
 	s := r.GetStyle().
 		Width(r.getContentWidth()).MaxWidth(r.getMaxWidth()).
 		Height(r.getContentHeight()).MaxHeight(r.getMaxHeight())
+	if r.modelContent {
+		r.UpdateContentsFromFunc()
+	}
 	return s.Render(r.content)
 }
 
