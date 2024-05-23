@@ -45,9 +45,10 @@ func main() {
 		infoBox: flexbox.New(0, 0).SetHeight(7),
 		headers: headers,
 	}
-	m.table.SetStylePassing(true)
-	// setup
+	// setup dimensions
 	m.table.SetRatio(ratio).SetMinWidth(minSize)
+	// set style passing
+	m.table.SetStylePassing(true)
 	// add rows
 	m.table.AddRows(rows)
 
