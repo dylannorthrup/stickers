@@ -74,6 +74,13 @@ func (r *FlexBox) AddRows(rows []*Row) *FlexBox {
 	return r
 }
 
+// RemoveRow removes single row at index from FlexBox
+func (r *FlexBox) RemoveRow(index int) *FlexBox {
+	r.rows = append(r.rows[:index], r.rows[index+1:]...)
+	r.setRecalculate()
+	return r
+}
+
 // SetRows replace rows on the FlexBox
 func (r *FlexBox) SetRows(rows []*Row) *FlexBox {
 	r.rows = rows
